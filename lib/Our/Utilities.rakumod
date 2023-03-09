@@ -154,7 +154,8 @@ sub add-commas-to-integer (Int:D $i is copy) is export {
 }
 
 my grammar String-to-Date-Time {
-    token TOP               { <date> .+? <time>                                         }
+    token TOP               { <date> <dt-separator> <time>                              }
+    token dt-separator      { . || \s+                                                  }
     token date              { <yyyymd> || <mdyyyy>                                      }
     token yyyymd            { <year> <month-separator> <month> <month-separator> <day>  }
     token mdyyyy            { <month> <month-separator> <day> <month-separator> <year>  }
