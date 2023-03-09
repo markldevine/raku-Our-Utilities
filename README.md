@@ -19,8 +19,6 @@ SYNOPSIS
     string-to-date-time('3/5/2023 9:35:01');
     string-to-date-time('2023-3-5 9:35:10');
 
-=finish
-
 AUTHOR
 ======
 Mark Devine <mark@markdevine.com>
