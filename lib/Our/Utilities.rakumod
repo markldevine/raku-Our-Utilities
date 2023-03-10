@@ -58,7 +58,7 @@ sub number-metric-unit-to-number (Str:D $num-unit) is export {
     return $num-unit;
 }
 
-sub real-to-metric-unit (Real:D $num) is export {
+sub rat-to-metric-unit (Rat:D $num) is export {
     given $num {
         when $_ >= PETA { return ($num / PETA).fmt("%.1f P"); }
         when $_ >= TERA { return ($num / TERA).fmt("%.1f T"); }
