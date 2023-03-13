@@ -69,9 +69,9 @@ put '$num * -1 = <' ~ $num ~ '>';
     given $num {
         when $_ >= PETA { put 'PETA'; return $neg ?? (-1 * ($num / PETA)).fmt("%.1f P") !! ($num / PETA).fmt("%.1f P"); }
         when $_ >= TERA { put 'TERA'; return $neg ?? (-1 * ($num / TERA)).fmt("%.1f T") !! ($num / TERA).fmt("%.1f T"); }
-        when $_ >= GIGA { put 'GIGA'; return $neg ?? (-1 * ($num / GIGA)).fmt("%.1f G") !! ($num / TERA).fmt("%.1f G"); }
-        when $_ >= MEGA { put 'MEGA'; return $neg ?? (-1 * ($num / MEGA)).fmt("%.1f M") !! ($num / TERA).fmt("%.1f M"); }
-        when $_ >= KILO { put 'KILO'; return $neg ?? (-1 * ($num / KILO)).fmt("%.1f K") !! ($num / TERA).fmt("%.1f K"); }
+        when $_ >= GIGA { put 'GIGA'; return $neg ?? (-1 * ($num / GIGA)).fmt("%.1f G") !! ($num / GIGA).fmt("%.1f G"); }
+        when $_ >= MEGA { put 'MEGA'; return $neg ?? (-1 * ($num / MEGA)).fmt("%.1f M") !! ($num / MEGA).fmt("%.1f M"); }
+        when $_ >= KILO { put 'KILO'; return $neg ?? (-1 * ($num / KILO)).fmt("%.1f K") !! ($num / KILO).fmt("%.1f K"); }
         default         { put 'BYTE'; return $neg ?? (-1 * $num) !! $num                                                }
     }
 }
