@@ -65,11 +65,11 @@ sub number-to-metric-unit (Numeric:D $num is copy) is export {
         $num *= -1;
     }
     given $num {
-        when $_ >= PETA { return $neg ?? (-1 * ($num / PETA).fmt("%.1f P")) !! ($num / PETA).fmt("%.1f P"); }
-        when $_ >= TERA { return $neg ?? (-1 * ($num / TERA).fmt("%.1f T")) !! ($num / TERA).fmt("%.1f T"); }
-        when $_ >= GIGA { return $neg ?? (-1 * ($num / GIGA).fmt("%.1f G")) !! ($num / TERA).fmt("%.1f G"); }
-        when $_ >= MEGA { return $neg ?? (-1 * ($num / MEGA).fmt("%.1f M")) !! ($num / TERA).fmt("%.1f M"); }
-        when $_ >= KILO { return $neg ?? (-1 * ($num / KILO).fmt("%.1f K")) !! ($num / TERA).fmt("%.1f K"); }
+        when $_ >= PETA { return $neg ?? (-1 * ($num / PETA)).fmt("%.1f P") !! ($num / PETA).fmt("%.1f P"); }
+        when $_ >= TERA { return $neg ?? (-1 * ($num / TERA)).fmt("%.1f T") !! ($num / TERA).fmt("%.1f T"); }
+        when $_ >= GIGA { return $neg ?? (-1 * ($num / GIGA)).fmt("%.1f G") !! ($num / TERA).fmt("%.1f G"); }
+        when $_ >= MEGA { return $neg ?? (-1 * ($num / MEGA)).fmt("%.1f M") !! ($num / TERA).fmt("%.1f M"); }
+        when $_ >= KILO { return $neg ?? (-1 * ($num / KILO)).fmt("%.1f K") !! ($num / TERA).fmt("%.1f K"); }
         default         { return $neg ?? (-1 * $num) !! $num                                                }
     }
 }
