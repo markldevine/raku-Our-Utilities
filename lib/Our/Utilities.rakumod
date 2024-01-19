@@ -1,5 +1,7 @@
 unit module Our::Utilities:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
+use NativeCall;
+
 constant \KILOBYTE  = 1024;
 constant \MEGABYTE  = KILOBYTE  * KILOBYTE;
 constant \GIGABYTE  = MEGABYTE  * KILOBYTE;
