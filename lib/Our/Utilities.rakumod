@@ -225,5 +225,28 @@ sub term-size(--> winsize) is export {
     return $winsize;
 }
 
+enum ANSI-Colors is export (
+    black               => 16,
+    blue                => 21,
+    cyan                => 51,
+    green               => 46,
+    magenta             => 201,
+    orange              => 202,
+    red                 => 196,
+    white               => 231,
+    yellow              => 226,
+);
+
+enum ANSI-Effects is export (
+    bold                => 1,
+    faint               => 2,
+    italic              => 3,
+    underline           => 4,
+    blink               => 5,
+    reverse             => 7,
+    hide                => 8,
+    strikethrough       => 9,
+    doubleunderline     => 21,
+);
 
 =finish
