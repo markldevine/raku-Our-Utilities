@@ -204,4 +204,24 @@ sub string-to-date-time (Str:D $date-time) is export {
     return Nil;
 }
 
+class winsize is repr('CStruct') {
+    has uint16 $.rows;
+    has uint16 $.cols;
+    has uint16 $.xpixels;
+    has uint16 $.ypixels;
+    method gist() {
+        return "rows={self.rows} cols={self.cols} {self.xpixels}x{self.ypixels}"
+    }
+}
+
+constant TIOCGWINSZ = 0x5413;
+
+sub term-size(--> winsize) is export {
+    sub ioctl(int32 $fd, int32 $cmd, winsize $winsize) is native {*}
+    my winsize $winsize .= new;
+    ioctl(0,TIOCGWINSZ,$winsize);
+    return $winsize;
+}
+
+
 =finish
