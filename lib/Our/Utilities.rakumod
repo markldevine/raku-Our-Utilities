@@ -235,6 +235,18 @@ enum ANSI-Colors is export (
     red                 => 196,
     white               => 231,
     yellow              => 226,
+    gray244             => 244,
+    gray245             => 245,
+    gray246             => 246,
+    gray247             => 247,
+    gray248             => 248,
+    gray249             => 249,
+    gray250             => 250,
+    gray251             => 251,
+    gray252             => 252,
+    gray253             => 253,
+    gray254             => 254,
+    gray255             => 255,
 );
 
 enum ANSI-Effects is export (
