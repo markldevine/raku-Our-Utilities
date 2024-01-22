@@ -35,13 +35,13 @@ sub byte-unit-to-bytes (Str:D $num-unit, :$commas) is export {
     return $num-unit;
 }
 
-sub bytes-to-byte-unit (Int:D $bytes) is export {
+sub bytes-to-byte-unit (Int:D $bytes, Int:D :$digits = 1) is export {
     given $bytes {
-        when $_ >= PETABYTE { return ($bytes / PETABYTE).fmt("%.1f P");    }
-        when $_ >= TERABYTE { return ($bytes / TERABYTE).fmt("%.1f T");    }
-        when $_ >= GIGABYTE { return ($bytes / GIGABYTE).fmt("%.1f G");    }
-        when $_ >= MEGABYTE { return ($bytes / MEGABYTE).fmt("%.1f M");    }
-        when $_ >= KILOBYTE { return ($bytes / KILOBYTE).fmt("%.1f K");    }
+        when $_ >= PETABYTE { return ($bytes / PETABYTE).fmt("%.{$digits}f P"); }
+        when $_ >= TERABYTE { return ($bytes / TERABYTE).fmt("%.{$digits}f T"); }
+        when $_ >= GIGABYTE { return ($bytes / GIGABYTE).fmt("%.{$digits}f G"); }
+        when $_ >= MEGABYTE { return ($bytes / MEGABYTE).fmt("%.{$digits}f M"); }
+        when $_ >= KILOBYTE { return ($bytes / KILOBYTE).fmt("%.{$digits}f K"); }
         default             { return $bytes.fmt("%s B");                    }
     }
 }
