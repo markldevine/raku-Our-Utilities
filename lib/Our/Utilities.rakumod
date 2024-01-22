@@ -17,7 +17,7 @@ constant \MINUTE    = 60        * SECOND;
 constant \HOUR      = 60        * MINUTE;
 constant \DAY       = 24        * HOUR;
 
-sub byte-unit-to-bytes (Str:D $num-unit, :$commas) is export {
+sub bytes-unit-to-bytes (Str:D $num-unit, :$commas) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
@@ -35,7 +35,7 @@ sub byte-unit-to-bytes (Str:D $num-unit, :$commas) is export {
     return $num-unit;
 }
 
-sub bytes-to-byte-unit (Int:D $bytes, Int:D :$digits = 1) is export {
+sub bytes-to-bytes-unit (Int:D $bytes, Int:D :$digits = 1) is export {
     given $bytes {
         when $_ >= PETABYTE { return ($bytes / PETABYTE).fmt("%.{$digits}f P"); }
         when $_ >= TERABYTE { return ($bytes / TERABYTE).fmt("%.{$digits}f T"); }
