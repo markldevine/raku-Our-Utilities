@@ -17,17 +17,19 @@ constant \MINUTE    = 60        * SECOND;
 constant \HOUR      = 60        * MINUTE;
 constant \DAY       = 24        * HOUR;
 
-sub byte-unit-to-bytes (Str:D $num-unit) is export {
+sub byte-unit-to-bytes (Str:D $num-unit, :$commas) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
+        my $number  = $actual;
+        $number     = add-commas-to-integer($actual)    if $commas;
         given $unit {
-            when 'P'    { return $actual * PETABYTE }
-            when 'T'    { return $actual * TERABYTE }
-            when 'G'    { return $actual * GIGABYTE }
-            when 'M'    { return $actual * MEGABYTE }
-            when 'K'    { return $actual * KILOBYTE }
-            default     { return $actual;           }
+            when 'P'    { return $number * PETABYTE }
+            when 'T'    { return $number * TERABYTE }
+            when 'G'    { return $number * GIGABYTE }
+            when 'M'    { return $number * MEGABYTE }
+            when 'K'    { return $number * KILOBYTE }
+            default     { return $number;           }
         }
     }
     return $num-unit;
