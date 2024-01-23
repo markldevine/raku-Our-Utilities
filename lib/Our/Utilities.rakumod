@@ -21,17 +21,20 @@ sub bytes-unit-to-bytes (Str:D $num-unit, :$commas) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
-        my $number  = $actual;
-        $number     = add-commas-to-integer($actual)    if $commas;
         given $unit {
-            when 'P'    { return $number * PETABYTE }
-            when 'T'    { return $number * TERABYTE }
-            when 'G'    { return $number * GIGABYTE }
-            when 'M'    { return $number * MEGABYTE }
-            when 'K'    { return $number * KILOBYTE }
-            default     { return $number;           }
+            when .starts-with: 'P'  { $actual *= PETABYTE                       }
+            when .starts-with: 'T'  { $actual *= TERABYTE                       }
+            when .starts-with: 'G'  { $actual *= GIGABYTE                       }
+            when .starts-with: 'M'  { $actual *= MEGABYTE                       }
+            when .starts-with: 'K'  { $actual *= KILOBYTE                       }
+            when .starts-with: 'B'  { ;                                         }
+            default                 { warn 'Unknown UNIT'; return $num-unit;    }
         }
+        my $number  = $actual;
+        $number     = add-commas-to-digits($actual.Real)    if $commas;
+        return $number;
     }
+    warn 'Unknown "number UNIT" format';
     return $num-unit;
 }
 
@@ -42,27 +45,31 @@ sub bytes-to-bytes-unit (Int:D $bytes, Int:D :$digits = 1) is export {
         when $_ >= GIGABYTE { return ($bytes / GIGABYTE).fmt("%.{$digits}f G"); }
         when $_ >= MEGABYTE { return ($bytes / MEGABYTE).fmt("%.{$digits}f M"); }
         when $_ >= KILOBYTE { return ($bytes / KILOBYTE).fmt("%.{$digits}f K"); }
-        default             { return $bytes.fmt("%s B");                    }
+        default             { return $bytes.fmt("%s B");                        }
     }
 }
 
-sub number-metric-unit-to-number (Str:D $num-unit) is export {
+sub number-metric-unit-to-number (Str:D $num-unit, :$commas) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
         given $unit {
-            when 'P'    { return $actual * PETA }
-            when 'T'    { return $actual * TERA }
-            when 'G'    { return $actual * GIGA }
-            when 'M'    { return $actual * MEGA }
-            when 'K'    { return $actual * KILO }
-            default     { return $actual;       }
+            when .starts-with: 'P'  { $actual *= PETA                           }
+            when .starts-with: 'T'  { $actual *= TERA                           }
+            when .starts-with: 'G'  { $actual *= GIGA                           }
+            when .starts-with: 'M'  { $actual *= MEGA                           }
+            when .starts-with: 'K'  { $actual *= KILO                           }
+            default                 { warn 'Unknown UNIT'; return $num-unit;    }
         }
+        my $number  = $actual;
+        $number     = add-commas-to-digits($actual) if $commas;
+        return $number;
     }
+    warn 'Unknown "number UNIT" format';
     return $num-unit;
 }
 
-sub number-to-metric-unit (Numeric:D $num is copy, Int:D :$digits = 1) is export {
+sub number-to-metric-unit (Real:D $num is copy, Int:D :$digits = 1) is export {
     my $neg = False;
     if $num < 0 {
         $neg = True;
@@ -74,7 +81,7 @@ sub number-to-metric-unit (Numeric:D $num is copy, Int:D :$digits = 1) is export
         when $_ >= GIGA { return $neg ?? (-1 * ($num / GIGA)).fmt("%.{$digits}f G") !! ($num / GIGA).fmt("%.{$digits}f G"); }
         when $_ >= MEGA { return $neg ?? (-1 * ($num / MEGA)).fmt("%.{$digits}f M") !! ($num / MEGA).fmt("%.{$digits}f M"); }
         when $_ >= KILO { return $neg ?? (-1 * ($num / KILO)).fmt("%.{$digits}f K") !! ($num / KILO).fmt("%.{$digits}f K"); }
-        default         { return $neg ?? (-1 * $num) !! $num                                                                }
+        default         { return $neg ?? (-1 * $num) !! $num;                                                               }
     }
 }
 
@@ -166,7 +173,7 @@ multi sub add-commas-to-digits (Str:D $data is copy, :$fractional-digits) is exp
             my ($, $fraction)   = $data.Str.split('.');
             my $f-ds            = $fraction.chars;
             $f-ds               = $fractional-digits with $fractional-digits;
-            return add-commas-to-digits($data.Num, :fractional-digits($f-ds));
+            return add-commas-to-digits($data.Real, :fractional-digits($f-ds));
         }
         default                 {
             die 'NaN';
@@ -183,7 +190,7 @@ multi sub add-commas-to-digits (Int:D $data is copy) is export {
 multi sub add-commas-to-digits (Real:D $data is copy, :$fractional-digits) is export {
     my ($whole, $fraction)  = $data.Str.split('.');
     my $f-ds                = $fraction.chars;
-    $f-ds                   = $fractional-digits with $fractional-digits;
+    $f-ds                   = $fractional-digits    with $fractional-digits;
     if $fraction.chars < $f-ds {
         $fraction          ~= '0' x ($f-ds - $fraction.chars);
     }
