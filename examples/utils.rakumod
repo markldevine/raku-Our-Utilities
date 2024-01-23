@@ -3,18 +3,18 @@
 use lib '/home/mdevine/github.com/raku-Our-Utilities/lib';
 use Our::Utilities;
 
-#put 'bytes-unit-to-bytes("1 M")                 = ' ~ bytes-unit-to-bytes('1 M');
+#put 'bytes-unit-to-bytes("1 M")                 = ' ~ bytes-unit-to-bytes('1.1 M', :commas(False), :round(True));
 #put 'bytes-to-bytes-unit(211231231231)          = ' ~ bytes-to-bytes-unit(211231231231);
-#put "number-metric-unit-to-number('211.2 G')    = " ~ number-metric-unit-to-number('211.2 G');
+put "number-metric-unit-to-number('2.22255 K')  = " ~ number-metric-unit-to-number('2.22255 K', :commas(True), :round(False));
 #put 'number-to-metric-unit(211231231231)        = ' ~ number-to-metric-unit(211231231231);
 #my $seconds = (now - DateTime.new(:1965year, :3month, :20day, :0hour, :37minute, :0second)).Int;
 #put "seconds-to-y-d-hh-mm-ss($seconds)          = " ~ seconds-to-y-d-hh-mm-ss($seconds);
 #put 'integer-to-subscript(1234567890)           = ' ~ integer-to-subscript(1234567890);
 #put 'integer-to-superscript(1234567890)         = ' ~ integer-to-superscript(1234567890);
-put 'add-commas-to-digits(12345.67890)            = ' ~ add-commas-to-digits(12345.67890);
-put 'add-commas-to-digits("12345.67890")          = ' ~ add-commas-to-digits("12345.67890");
-put 'add-commas-to-digits(-12345.67890)           = ' ~ add-commas-to-digits(-12345.67890);
-put 'add-commas-to-digits("-12345.67890")         = ' ~ add-commas-to-digits("-12345.67890");
+#put 'add-commas-to-digits(12345.67890)          = ' ~ add-commas-to-digits(12345.67890);
+#put 'add-commas-to-digits("12345.67890")        = ' ~ add-commas-to-digits("12345.67890");
+#put 'add-commas-to-digits(-12345.67890)         = ' ~ add-commas-to-digits(-12345.67890);
+#put 'add-commas-to-digits("-12345.67890")       = ' ~ add-commas-to-digits("-12345.67890");
 #put "string-to-date-time('3/5/2023 9:35:01')    = " ~ string-to-date-time('3/5/2023 9:35:01');
 #put "string-to-date-time('3-5-2023 9:35:02')    = " ~ string-to-date-time('3-5-2023 9:35:02');
 #put "string-to-date-time('3/05/2023 9:35:03')   = " ~ string-to-date-time('3/05/2023 9:35:03');

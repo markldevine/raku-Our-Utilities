@@ -17,7 +17,7 @@ constant \MINUTE    = 60        * SECOND;
 constant \HOUR      = 60        * MINUTE;
 constant \DAY       = 24        * HOUR;
 
-sub bytes-unit-to-bytes (Str:D $num-unit, :$commas) is export {
+sub bytes-unit-to-bytes (Str:D $num-unit, :$commas, :$round) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
@@ -31,7 +31,8 @@ sub bytes-unit-to-bytes (Str:D $num-unit, :$commas) is export {
             default                 { warn 'Unknown UNIT'; return $num-unit;    }
         }
         my $number  = $actual;
-        $number     = add-commas-to-digits($actual.Real)    if $commas;
+        $number     = $number.round                 if $round;
+        $number     = add-commas-to-digits($number) if $commas;
         return $number;
     }
     warn 'Unknown "number UNIT" format';
@@ -49,7 +50,7 @@ sub bytes-to-bytes-unit (Int:D $bytes, Int:D :$digits = 1) is export {
     }
 }
 
-sub number-metric-unit-to-number (Str:D $num-unit, :$commas) is export {
+sub number-metric-unit-to-number (Str:D $num-unit, :$commas, :$round) is export {
     if $num-unit ~~ / ^ (\d+ '.'* \d*) \s* (\w*) $ / {
         my $actual  = $0.Str.comb.grep(/ \d | '.' /).join;
         my $unit    = $1.Str with $1;
@@ -62,7 +63,8 @@ sub number-metric-unit-to-number (Str:D $num-unit, :$commas) is export {
             default                 { warn 'Unknown UNIT'; return $num-unit;    }
         }
         my $number  = $actual;
-        $number     = add-commas-to-digits($actual) if $commas;
+        $number     = $number.round                 if $round;
+        $number     = add-commas-to-digits($number) if $commas;
         return $number;
     }
     warn 'Unknown "number UNIT" format';
