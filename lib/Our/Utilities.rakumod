@@ -156,7 +156,44 @@ sub integer-to-superscript (Int:D $i) is export {
     return $accumulator;
 }
 
-sub add-commas-to-integer (Int:D $i is copy) is export {
+multi sub add-commas-to-digits (Str:D $data is copy, :$fractional-digits) is export {
+    $data   = $data.trim;
+    given $data {
+        when / ^ \d+ $/         {
+                                    return add-commas-to-digits($data.Int);
+        }
+        when / ^ \d+ '.' (\d+) $/ {
+                                    my ($, $fraction)   = $data.Str.split('.');
+                                    my $f-ds            = $fraction.chars;
+                                    $f-ds               = $fractional-digits with $fractional-digits;
+                                    return add-commas-to-digits($data.Num, :fractional-digits($f-ds));
+        }
+        default                 {
+                                    die 'NaN';
+        }
+    }
+}
+
+multi sub add-commas-to-digits (Int:D $data is copy) is export {
+    return $data.Str.flip.comb(3).join(',').flip if $data >= 0;
+    $data *= -1;
+    return '-' ~ $data.Str.flip.comb(3).join(',').flip;
+}
+
+multi sub add-commas-to-digits (Real:D $data is copy, :$fractional-digits) is export {
+    my ($whole, $fraction)  = $data.Str.split('.');
+    my $f-ds                = $fraction.chars;
+    $f-ds                   = $fractional-digits with $fractional-digits;
+    if $fraction.chars < $f-ds {
+        $fraction          ~= '0' x ($f-ds - $fraction.chars);
+    }
+    elsif $fraction.chars > $f-ds {
+        $fraction           = $fraction.substr(0, $f-ds);
+    }
+    return add-commas-to-digits($whole.Int) ~ '.' ~ $fraction;
+}
+
+sub add-commas-to-integer (Int:D $i is copy) is export is DEPRECATED {
     return $i.Str.flip.comb(3).join(',').flip if $i >= 0;
     $i *= -1;
     return '-' ~ $i.Str.flip.comb(3).join(',').flip;
