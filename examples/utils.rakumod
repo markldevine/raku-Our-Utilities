@@ -3,12 +3,12 @@
 use lib '/home/mdevine/github.com/raku-Our-Utilities/lib';
 use Our::Utilities;
 
-put 'byte-unit-to-bytes("1 M")                  = ' ~ byte-unit-to-bytes('1 M');
-put 'bytes-to-byte-unit(211231231231)           = ' ~ bytes-to-byte-unit(211231231231);
+put 'bytes-unit-to-bytes("1 M")                 = ' ~ bytes-unit-to-bytes('1 M');
+put 'bytes-to-bytes-unit(211231231231)          = ' ~ bytes-to-bytes-unit(211231231231);
 put "number-metric-unit-to-number('211.2 G')    = " ~ number-metric-unit-to-number('211.2 G');
-put 'rat-to-metric-unit(211231231231)           = ' ~ rat-to-metric-unit(211231231231);
+put 'number-to-metric-unit(211231231231)        = ' ~ number-to-metric-unit(211231231231);
 my $seconds = (now - DateTime.new(:1965year, :3month, :20day, :0hour, :37minute, :0second)).Int;
-put "seconds-to-y-d-hh-mm-ss($seconds)        = " ~ seconds-to-y-d-hh-mm-ss($seconds);
+put "seconds-to-y-d-hh-mm-ss($seconds)          = " ~ seconds-to-y-d-hh-mm-ss($seconds);
 put 'integer-to-subscript(1234567890)           = ' ~ integer-to-subscript(1234567890);
 put 'integer-to-superscript(1234567890)         = ' ~ integer-to-superscript(1234567890);
 put 'add-commas-to-integer(1234567890)          = ' ~ add-commas-to-integer(1234567890);

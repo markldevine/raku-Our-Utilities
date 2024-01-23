@@ -209,7 +209,7 @@ my grammar String-to-Date-Time {
     token year              { \d ** 4                                                   }
     token month             { \d ** 1..2                                                }
     token day               { \d ** 1..2                                                }
-    token time              { <hour> ':' <minute> ':' <second>                          }
+    token time              { <hour> ':' <minute> ':'* <second>*                        }
     token hour              { \d ** 1..2                                                }
     token minute            { \d ** 1..2                                                }
     token second            { \d ** 1..2                                                }
@@ -222,7 +222,7 @@ sub string-to-date-time (Str:D $date-time) is export {
     my $day;
     my $hour;
     my $minute;
-    my $second;
+    my $second      = '00';
     if $parse = String-to-Date-Time.parse($date-time) {
         if $parse<date><yyyymd><year>:exists {
             $year   = $parse<date><yyyymd><year>.Str;
@@ -239,7 +239,7 @@ sub string-to-date-time (Str:D $date-time) is export {
         }
         $hour       = $parse<time><hour>.Str;
         $minute     = $parse<time><minute>.Str;
-        $second     = $parse<time><second>.Str;
+        $second     = $parse<time><second>.Str  if $parse<time><second>;
         return(DateTime.new(:$year, :$month, :$day, :$hour, :$minute, :$second));
     }
     return Nil;
