@@ -159,17 +159,17 @@ sub integer-to-superscript (Int:D $i) is export {
 multi sub add-commas-to-digits (Str:D $data is copy, :$fractional-digits) is export {
     $data   = $data.trim;
     given $data {
-        when / ^ \d+ $/         {
-                                    return add-commas-to-digits($data.Int);
+        when / ^ <[+-]>* \s* \d+ $/ {
+            return add-commas-to-digits($data.Int);
         }
-        when / ^ \d+ '.' (\d+) $/ {
-                                    my ($, $fraction)   = $data.Str.split('.');
-                                    my $f-ds            = $fraction.chars;
-                                    $f-ds               = $fractional-digits with $fractional-digits;
-                                    return add-commas-to-digits($data.Num, :fractional-digits($f-ds));
+        when / ^ <[+-]>* \s* \d+ '.' (\d+) $/ {
+            my ($, $fraction)   = $data.Str.split('.');
+            my $f-ds            = $fraction.chars;
+            $f-ds               = $fractional-digits with $fractional-digits;
+            return add-commas-to-digits($data.Num, :fractional-digits($f-ds));
         }
         default                 {
-                                    die 'NaN';
+            die 'NaN';
         }
     }
 }
