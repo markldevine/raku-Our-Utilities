@@ -3,10 +3,10 @@
 use lib '/home/mdevine/github.com/raku-Our-Utilities/lib';
 use Our::Utilities;
 
-#put 'bytes-unit-to-bytes("1 M")                 = ' ~ bytes-unit-to-bytes('1.1 M', :commas(False), :round(True));
-#put 'bytes-to-bytes-unit(211231231231)          = ' ~ bytes-to-bytes-unit(211231231231);
+put 'bytes-unit-to-bytes("1 M")                 = ' ~ bytes-unit-to-bytes('1.1 M', :commas(False), :round(False));
+put 'bytes-to-bytes-unit(211231231231)          = ' ~ bytes-to-bytes-unit(211231231231);
 put "number-metric-unit-to-number('2.22255 K')  = " ~ number-metric-unit-to-number('2.22255 K', :commas(True), :round(False));
-#put 'number-to-metric-unit(211231231231)        = ' ~ number-to-metric-unit(211231231231);
+put 'number-to-metric-unit(211231231231)        = ' ~ number-to-metric-unit(211231231231);
 #my $seconds = (now - DateTime.new(:1965year, :3month, :20day, :0hour, :37minute, :0second)).Int;
 #put "seconds-to-y-d-hh-mm-ss($seconds)          = " ~ seconds-to-y-d-hh-mm-ss($seconds);
 #put 'integer-to-subscript(1234567890)           = ' ~ integer-to-subscript(1234567890);
