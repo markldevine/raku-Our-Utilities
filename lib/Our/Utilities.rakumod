@@ -273,6 +273,12 @@ sub term-size(--> winsize) is export {
     return $winsize;
 }
 
+enum Sort-Type is export (
+    sort-string             => 1,
+    sort-numeric            => 2,
+    sort-device             => 3,
+);
+
 enum ANSI-Colors is export (
     black                   => 16,
     blue                    => 21,
