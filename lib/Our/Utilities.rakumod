@@ -275,7 +275,7 @@ sub term-size(--> winsize) is export {
 
 enum Sort-Type is export (
     sort-string             => 1,
-    sort-numeric            => 2,
+    sort-digits             => 2,
     sort-device             => 3,
 );
 
