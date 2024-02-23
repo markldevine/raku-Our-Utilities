@@ -279,29 +279,34 @@ enum Sort-Type is export (
     sort-device             => 3,
 );
 
-enum ANSI-Colors is export (
-    black                   => 16,
-    blue                    => 21,
-    cyan                    => 51,
-    green                   => 46,
-    magenta                 => 201,
-    orange                  => 202,
-    red                     => 196,
-    white                   => 231,
-    yellow                  => 226,
-    gray244                 => 244,
-    gray245                 => 245,
-    gray246                 => 246,
-    gray247                 => 247,
-    gray248                 => 248,
-    gray249                 => 249,
-    gray250                 => 250,
-    gray251                 => 251,
-    gray252                 => 252,
-    gray253                 => 253,
-    gray254                 => 254,
-    gray255                 => 255,
-);
+#enum ANSI-Colors is export (
+#    black                   => 16,
+#    blue                    => 21,
+#    cyan                    => 51,
+#    green                   => 46,
+#    magenta                 => 201,
+#    orange                  => 202,
+#    red                     => 196,
+#    white                   => 231,
+#    yellow                  => 226,
+#    gray244                 => 244,
+#    gray245                 => 245,
+#    gray246                 => 246,
+#    gray247                 => 247,
+#    gray248                 => 248,
+#    gray249                 => 249,
+#    gray250                 => 250,
+#    gray251                 => 251,
+#    gray252                 => 252,
+#    gray253                 => 253,
+#    gray254                 => 254,
+#    gray255                 => 255,
+#);
+
+enum Our-UNICODE-Chars is export {
+    ouc-infinity            => "\x[221E]",
+    ouc-superscript-x       => "\x[02E3]",
+}
 
 enum ANSI-Effects is export (
     bold                    => 1,
@@ -315,11 +320,18 @@ enum ANSI-Effects is export (
     doubleunderline         => 21,
 );
 
-enum Justification is export (
-    justify-left            => 1,
-    justify-center          => 2,
-    justify-right           => 3,
+our %Justification is export = (
+    left                    => 1,
+    center                  => 2,
+    right                   => 3,
 );
+
+#   Incompatible with JSON::Unmarshal
+#enum Justification is export (
+#    justify-left            => 1,
+#    justify-center          => 2,
+#    justify-right           => 3,
+#);
 
 our %box-char is export = (
         side                => '│',
