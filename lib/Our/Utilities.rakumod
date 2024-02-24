@@ -273,7 +273,7 @@ sub term-size(--> winsize) is export {
     return $winsize;
 }
 
-our $Sort-Type is export    = set <string digits device>;
+our $Sort-Type is export    = set <string digits name-number>;
 #enum Sort-Type is export (
 #    sort-string             => 1,
 #    sort-digits             => 2,
