@@ -307,8 +307,6 @@ our %box-char is export = (
         side-row-right-sep  => '┤',
     );
 
-subset EmailAddr is export of Str where {
-    $_ ~~ /@/ && .comb(/@/) > 1 && /<[<alnum>-]>+ '.' <[<alnum>-]>+ $/;
-}
+#subset EmailAddr is export of Str where $_ ~~ /^ .+? '@' <[<alnum>-]>+ '.' <[<alnum>-]>+ $/;
 
 =finish
