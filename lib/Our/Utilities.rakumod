@@ -274,11 +274,6 @@ sub term-size(--> winsize) is export {
 }
 
 our $Sort-Type is export    = set <string digits name-number>;
-#enum Sort-Type is export (
-#    sort-string             => 1,
-#    sort-digits             => 2,
-#    sort-device             => 3,
-#);
 
 enum Our-UNICODE-Chars is export (
     ouc-infinity            => "\x[221E]",
@@ -311,5 +306,9 @@ our %box-char is export = (
         side-row-left-sep   => '├',
         side-row-right-sep  => '┤',
     );
+
+subset EmailAddr is export of Str where {
+    $_ ~~ /@/ && .comb(/@/) > 1 && /<[<alnum>-]>+ '.' <[<alnum>-]>+ $/;
+}
 
 =finish
