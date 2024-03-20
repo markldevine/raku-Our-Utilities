@@ -278,6 +278,8 @@ our $Sort-Type is export    = set <string digits name-number>;
 enum Our-UNICODE-Chars is export (
     ouc-infinity            => "\x[221E]",
     ouc-superscript-x       => "\x[02E3]",
+    ouc-delta               => "\x[0394]",
+    ouc-hourglass           => "\x[029D6]",
 );
 
 enum ANSI-Effects is export (
@@ -307,6 +309,6 @@ our %box-char is export = (
         side-row-right-sep  => '┤',
     );
 
-#subset EmailAddr is export of Str where $_ ~~ /^ .+? '@' <[<alnum>-]>+ '.' <[<alnum>-]>+ $/;
+subset Email-Address is export of Str where $_ ~~ /^ .+? '@' <[<alnum>-]>+ '.' <[<alnum>-]>+ $/;
 
 =finish
