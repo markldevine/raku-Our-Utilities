@@ -273,7 +273,7 @@ sub term-size(--> winsize) is export {
     return $winsize;
 }
 
-our $Sort-Type is export    = set <digits string sting-digits digits-string>;
+our $Sort-Type is export    = set <digits string string-digits digits-string>;
 
 enum Our-UNICODE-Chars is export (
     ouc-infinity            => "\x[221E]",
