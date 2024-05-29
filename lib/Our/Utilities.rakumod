@@ -290,6 +290,7 @@ enum Our-UNICODE-Chars is export (
     ouc-subscript-equals    => "\x[208C]",
     ouc-subscript-lparen    => "\x[208D]",
     ouc-subscript-rparen    => "\x[208E]",
+    ouc-superscript-H       => "\x[1D34]",
 );
 
 enum ANSI-Effects is export (
