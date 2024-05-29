@@ -280,6 +280,16 @@ enum Our-UNICODE-Chars is export (
     ouc-superscript-x       => "\x[02E3]",
     ouc-delta               => "\x[0394]",
     ouc-hourglass           => "\x[029D6]",
+    ouc-superscript-plus    => "\x[207A]",
+    ouc-superscript-minus   => "\x[207B]",
+    ouc-superscript-equals  => "\x[207C]",
+    ouc-superscript-lparen  => "\x[207D]",
+    ouc-superscript-rparen  => "\x[207E]",
+    ouc-subscript-plus      => "\x[208A]",
+    ouc-subscript-minus     => "\x[208B]",
+    ouc-subscript-equals    => "\x[208C]",
+    ouc-subscript-lparen    => "\x[208D]",
+    ouc-subscript-rparen    => "\x[208E]",
 );
 
 enum ANSI-Effects is export (
