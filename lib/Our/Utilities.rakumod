@@ -17,7 +17,7 @@ constant \MINUTE    = 60        * SECOND;
 constant \HOUR      = 60        * MINUTE;
 constant \DAY       = 24        * HOUR;
 
-sub which (Str:D $cmd --> Str:D) is export{
+sub which (Str:D $cmd --> Str:D) is export {
     %*ENV<PATH>
         .split($*DISTRO.path-sep)
         .map(*.IO.add($cmd))
