@@ -17,12 +17,10 @@ constant \MINUTE    = 60        * SECOND;
 constant \HOUR      = 60        * MINUTE;
 constant \DAY       = 24        * HOUR;
 
-sub which (Str:D $cmd --> Str:D) is export {
-    %*ENV<PATH>
-        .split($*DISTRO.path-sep)
-        .map(*.IO.add($cmd))
-        .first(*.x)
-        .Str
+sub which (Str:D $cmd) is export {
+    my $found = %*ENV<PATH> .split($*DISTRO.path-sep) .map(*.IO.add($cmd)) .first(*.x);
+    return Nil unless $found;
+    return $found.Str;
 }
 
 sub bytes-unit-to-bytes (Str:D $num-unit, :$commas, :$round) is export {
